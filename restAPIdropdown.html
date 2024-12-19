@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Data and Populate Dropdown</title>
+</head>
+<body>
+    <h1>Fetch Data and Populate Dropdown</h1>
+    <select id="dropdown"></select>
+
+    <!-- <script src="script.js"></script> -->
+    <script>
+        // Fetch data from the REST API
+fetch('https://jsonplaceholder.typicode.com/users')
+.then(response => {
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    return response.json();
+})
+.then(data => {
+    // Populate the dropdown with retrieved options
+    const dropdown = document.getElementById('dropdown');
+    data.forEach(user => {
+        const option = document.createElement('option');
+        option.value = user.id;
+        option.text = user.name;
+        dropdown.appendChild(option);
+    });
+})
+.catch(error => {
+    console.error('There was a problem with your fetch operation:', error);
+});
+
+    </script>
+</body>
+</html>

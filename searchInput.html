@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search List</title>
+    <style>
+        #searchInput {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="searchInput" placeholder="Search...">
+    <ul id="resultList">
+        <li>Apple</li>
+        <li>Orange</li>
+        <li>Banana</li>
+        <li>Grapes</li>
+        <li>Cherry</li>
+    </ul>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.getElementById('searchInput');
+            const resultList = document.getElementById('resultList');
+            const originalList = Array.from(resultList.children);
+
+            searchInput.addEventListener('input', function () {
+                const searchTerm = searchInput.value.toLowerCase();
+
+                // Filter the list items based on the search term
+                const filteredList = originalList.filter(function (item) {
+                    return item.textContent.toLowerCase().includes(searchTerm);
+                });
+
+                // Update the displayed list
+                updateList(resultList, filteredList);
+            });
+
+            function updateList(container, items) {
+                // Clear the current list
+                container.innerHTML = '';
+
+                // Append the filtered items to the list
+                items.forEach(function (item) {
+                    container.appendChild(item.cloneNode(true));
+                });
+            }
+        });
+
+
+      //  document.addEventListener('DOMContentLoaded', function() {
+      //      const searchInput = document.getElementById('searchInput');
+      //      const resultList = document.getElementById('resultList');
+      //      const originalList = Array.from(resultList.children);
+//
+      //      searchInput.addEventListener('input', function() {
+      //          const searchTerm = searchInput.value.toLowerCase();
+//
+      //          const filteredList = originalList.filter(function (item) {
+      //              return item.textContent.toLowerCase().includes(searchTerm);
+      //          });
+//
+      //          updateList(resultList, filteredList);
+      //      });
+//
+      //      function updateList(container, items) {
+      //          container.innerHTML = '';
+//
+      //          items.forEach(function (item) {
+      //              container.appendChild(item.cloneNode(true));
+      //          })
+      //      }
+      //  });
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptocurrency Prices</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #crypto-container {
+            margin-top: 20px;
+        }
+
+        .crypto-item {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .crypto-name {
+            font-weight: bold;
+        }
+
+        .crypto-price {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Real-time Cryptocurrency Prices</h1>
+    <div id="crypto-container">
+        <!-- Crypto prices will be displayed here -->
+    </div>
+
+    <!-- <script src="script.js"></script> -->
+    <script>
+        const cryptoContainer = document.getElementById('crypto-container');
+
+// Function to fetch cryptocurrency prices from the API
+async function fetchCryptoPrices() {
+    try {
+        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,litecoin&vs_currencies=usd');
+        const data = await response.json();
+        displayCryptoPrices(data);
+    } catch (error) {
+        console.error('Error fetching cryptocurrency prices:', error);
+    }
+}
+
+// Function to display cryptocurrency prices
+function displayCryptoPrices(prices) {
+    cryptoContainer.innerHTML = '';
+
+    for (const crypto in prices) {
+        const price = prices[crypto].usd;
+
+        const cryptoItem = document.createElement('div');
+        cryptoItem.classList.add('crypto-item');
+
+        const cryptoName = document.createElement('div');
+        cryptoName.classList.add('crypto-name');
+        cryptoName.textContent = crypto.charAt(0).toUpperCase() + crypto.slice(1);
+
+        const cryptoPrice = document.createElement('div');
+        cryptoPrice.classList.add('crypto-price');
+        cryptoPrice.textContent = `$${price}`;
+
+        cryptoItem.appendChild(cryptoName);
+        cryptoItem.appendChild(cryptoPrice);
+
+        cryptoContainer.appendChild(cryptoItem);
+    }
+}
+
+// Fetch cryptocurrency prices initially and then every 10 seconds
+fetchCryptoPrices();
+setInterval(fetchCryptoPrices, 10000);
+
+    </script>
+</body>
+</html>

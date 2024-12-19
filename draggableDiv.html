@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop</title>
+    <style>
+        /* Styles for draggable elements */
+        .draggable {
+            width: 100px;
+            height: 100px;
+            background-color: #3498db;
+            color: #fff;
+            text-align: center;
+            line-height: 100px;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            left: 50px;
+            top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Draggable elements -->
+    <div id="draggable1" class="draggable" draggable="true">Drag Me 1</div>
+    <div id="draggable2" class="draggable" draggable="true">Drag Me 2</div>
+
+    <!-- <script src="script.js"></script> -->
+    <script>
+        // Get all draggable elements
+const draggables = document.querySelectorAll('.draggable');
+
+// Variable to store the currently dragged element
+let draggedElement = null;
+
+// Add event listeners to draggable elements
+draggables.forEach(draggable => {
+    draggable.addEventListener('dragstart', dragStart);
+    draggable.addEventListener('dragend', dragEnd);
+});
+
+// Function to handle drag start
+function dragStart(event) {
+    draggedElement = this;
+    this.style.opacity = '0.5';
+}
+
+// Function to handle drag end
+function dragEnd() {
+    this.style.opacity = '1';
+    draggedElement = null;
+}
+
+// Add event listeners to document for drop target
+document.addEventListener('dragover', dragOver);
+document.addEventListener('dragenter', dragEnter);
+document.addEventListener('dragleave', dragLeave);
+document.addEventListener('drop', drop);
+
+// Function to handle drag over
+function dragOver(event) {
+    event.preventDefault();
+}
+
+// Function to handle drag enter
+function dragEnter(event) {
+    event.preventDefault();
+}
+
+// Function to handle drag leave
+function dragLeave() {
+    // Do nothing for simplicity, but you could add styles or animations here if needed
+}
+
+// Function to handle drop
+function drop() {
+    if (draggedElement !== null) {
+        this.appendChild(draggedElement);
+    }
+}
+
+    </script>
+</body>
+</html>

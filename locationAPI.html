@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Location Map</title>
+    <!-- Include Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- Include Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <!-- Add some styling for the map container -->
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Container for the map -->
+    <div id="map"></div>
+
+    <!-- <script src="script.js"></script> -->
+    <script>
+        // Wait for the DOM to be fully loaded before executing JavaScript
+document.addEventListener("DOMContentLoaded", function () {
+    // Access the user's current location using the Geolocation API
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            // Get the user's latitude and longitude coordinates
+            const userLatitude = position.coords.latitude;
+            const userLongitude = position.coords.longitude;
+
+            // Create a Leaflet map centered around the user's location
+            const map = L.map("map").setView([userLatitude, userLongitude], 13);
+
+            // Add a tile layer to the map (using OpenStreetMap)
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
+            }).addTo(map);
+
+            // Add a marker for the user's location
+            L.marker([userLatitude, userLongitude]).addTo(map)
+                .bindPopup("You are here!")
+                .openPopup();
+        });
+    } else {
+        // If geolocation is not supported by the browser
+        alert("Geolocation is not supported by your browser.");
+    }
+});
+
+    </script>
+</body>
+</html>

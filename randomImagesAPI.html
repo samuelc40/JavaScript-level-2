@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            height: 600px;
+            width: 800px;
+            border-radius: 20px;
+            margin: 4vw 24.5vw;
+            overflow: hidden;
+            object-fit: contain;
+        }
+        #image {
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img id="image"/>
+    </div>
+    <center><button onclick="get_random_image()" id="button"> Random </button></center>
+    <script>
+        function get_random_image() {
+            url = "https://dog.ceo/api/breeds/image/random";
+
+            fetch(url)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                display_image(data.message);
+            })
+            .catch(function(error) {
+                console.log("Error: " + error);
+            });
+        }
+
+        function display_image(image_url) {
+            document.getElementById("image").src = image_url;
+        }
+    </script>
+</body>
+</html>

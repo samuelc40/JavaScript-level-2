@@ -1,0 +1,78 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+
+<head> 
+	<meta charset="UTF-8" /> 
+	<meta name="viewport"
+		content-after-loading="width=device-width, 
+								initial-scale=1.0" /> 
+	<link rel="stylesheet" href="style.css" /> 
+	<title> 
+		Create an Infinite Scroll Page 
+		using HTML CSS & JavaScript 
+	</title> 
+    <style>
+        body { 
+            font-family: cursive; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #968d8d; 
+        } 
+        
+        .sub-block { 
+            border: 1px solid #030303; 
+            padding: 20px; 
+            margin: 10px 0; 
+            height: 50px; 
+            text-align: center; 
+        } 
+        
+        #content-before-loading { 
+            text-align: center; 
+            display: none; 
+            font-size: 16px; 
+            margin-top: 20px; 
+            max-width: 600px; 
+            margin: 20px auto; 
+            padding: 20px; 
+            background-color: #fff; 
+        }
+        
+    </style>
+</head> 
+
+<body> 
+	<div id="content-before-loading"></div> 
+	<!-- <script src="script.js"></script>  -->
+    <script>
+        const before_loading = 
+	document.getElementById("content-before-loading"); 
+before_loading.style.display = "block"; 
+let c = 0; 
+function getInformation() { 
+	setTimeout(() => { 
+		for (let i = 0; i < 10; i++) { 
+			const new_div = document.createElement("div"); 
+			new_div.className = "sub-block"; 
+			new_div.innerHTML = `Card ${c}${i}`; 
+			before_loading.appendChild(new_div); 
+		} 
+		c++; 
+	}, 1000); 
+} 
+
+window.addEventListener("scroll", () => { 
+	if ( 
+		document.documentElement.scrollTop + 
+		document.documentElement.clientHeight >= 
+		document.documentElement.scrollHeight 
+	) { 
+		getInformation(); 
+	} 
+}); 
+getInformation();
+
+    </script>
+</body> 
+
+</html>
